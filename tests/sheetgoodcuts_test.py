@@ -23,7 +23,7 @@ class SheetGoodCutsTest(unittest.TestCase):
         ]
         results = sheetgoodcuts(desired_cuts=desired_cuts,
                                 sheets=plywood)
-        print(results)
+        #print(results)
 
 if __name__ == '__main__':
     unittest.main()

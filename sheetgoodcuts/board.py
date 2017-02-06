@@ -96,3 +96,38 @@ class QuantityBoard(object):
         return '{0}({1}, {2})'.format(self.__class__.__name__,
                                       self.quantity,
                                       repr(self.board))
+
+
+class BoardResult(object):
+    """This class represents a board and the cuts on that board.  Immutable."""
+    def __init__(self, board, cuts):
+        """
+        :param board: The Board that will be cut up.
+        :param cuts: The list of cuts, as Boards.
+        """
+        self._board = board
+        self._cuts = tuple(cuts)  # Make immutable.
+
+    @property
+    def board(self):
+        return self._board
+
+    @property
+    def cuts(self):
+        return self._cuts
+
+    def __str__(self):
+        """Returns BoardResult as a string."""
+        return_value = ""
+        return_value += "board = {0}".format(str(self.board))
+        for cut in self.cuts:
+            return_value += "\ncut = {0}".format(str(cut))
+        return return_value
+
+    def __repr__(self):
+        """Returns BoardResult with more debug info."""
+        return_value = ""
+        return_value += "board = {0}".format(repr(self.board))
+        for cut in self.cuts:
+            return_value += "\ncut = {0}".format(repr(cut))
+        return return_value
