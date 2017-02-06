@@ -21,16 +21,14 @@ class Mixed(object):
     def __init__(self, number):
         """Creates a new mixed number.
 
-        Args:
-            number: Mixed number in whole, and fraction.  Can be a string or another Mixed.
+        :param number: Mixed number in whole, and fraction.  Can be a string or another Mixed.
 
-        Returns:
-            Mixed object.
-
-        Raises:
-            ValueError: If mixed_as_string is invalid.
+        :raises ValueError: If mixed_as_string is invalid.
         """
         # If another Mixed, copy and return.
+        if not isinstance(number, Mixed) and not isinstance(number, str):
+            raise ValueError("{0} is not a Mixed or a string.".format(type(number)))
+
         if isinstance(number, Mixed):
             self._mixed = number.mixed
             return

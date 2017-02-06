@@ -1,27 +1,29 @@
 import unittest
 
-from sheetgoodcuts.sheetgoodcuts import Board
-from sheetgoodcuts import Mixed
-from fractions import Fraction
+from sheetgoodcuts import Board
+from sheetgoodcuts import sheetgoodcuts
 
 
-class BoardTest(unittest.TestCase):
-    """Tests Board."""
-    def test_string(self):
-        test = Fraction("3/4")
-        board = Board(depth="3/4", width="2 1/2", length="48")
-        self.assertEqual('3/4" by 2 1/2" by 48"', str(board))
-        self.assertEqual('Board(depth="3/4", width="2 1/2", length="48")', repr(board))
+class ResultTest(unittest.TestCase):
+    """Tests Result."""
+    def test_one(self):
+        # This class is not implemented!!!
+        pass
 
-    def test_immutable(self):
-        board = Board(depth="3/4", width="2 1/2", length="48")
-        with self.assertRaises(AttributeError):
-            board.length = Mixed("1")
-        with self.assertRaises(AttributeError):
-            board.width = Mixed("1")
-        with self.assertRaises(AttributeError):
-            board.depth = Mixed("1")
 
+class SheetGoodCutsTest(unittest.TestCase):
+    """Tests the main sheet good cuts functionality."""
+    def test_one(self):
+        desired_cuts = [
+            Board("A", "3/4", "15 1/2", "23"),
+            Board("A", "3/4", "15 1/2", "23")
+        ]
+        plywood = [
+            Board("Birch", "3/4", "24", "48")
+        ]
+        results = sheetgoodcuts(desired_cuts=desired_cuts,
+                                sheets=plywood)
+        print(results)
 
 if __name__ == '__main__':
     unittest.main()
