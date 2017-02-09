@@ -16,6 +16,21 @@ class ChopSawCutsTest(unittest.TestCase):
         ]
         cuts = ChopSawCuts(desired_cuts=desired_cuts,
                            available_boards=available_boards)
+        board_results = cuts.compute()
+        self.assertEqual('board = 8 foot: 3/4" by 1 1/2" by 96"\n'
+                         'cut = A: 3/4" by 1 1/2" by 24"\n'
+                         'cut = A: 3/4" by 1 1/2" by 24"\n'
+                         'cut = C: 3/4" by 1 1/2" by 18 1/2"\n'
+                         'cut = C: 3/4" by 1 1/2" by 6"\n'
+                         'cut = C: 3/4" by 1 1/2" by 6"',
+                         str(board_results[0]))
+        self.assertEqual('board = 8 foot: 3/4" by 1 1/2" by 96"\n'
+                         'cut = C: 3/4" by 1 1/2" by 6"',
+                         str(board_results[1]))
+        '''
+        for board_result in board_results:
+            print(board_result)
+        '''
 
     def test_invalid_desired_cut(self):
         self.assertRaisesRegex(TypeError,
@@ -32,6 +47,8 @@ class ChopSawCutsTest(unittest.TestCase):
                                ChopSawCuts,
                                desired_cuts=[Board(name="C", depth="3/4", width="1 1/2", length="18 1/2")],
                                available_boards=[True])
+
+    # CHAD TO DO. Create some error scenarios.
 
 if __name__ == '__main__':
     unittest.main()

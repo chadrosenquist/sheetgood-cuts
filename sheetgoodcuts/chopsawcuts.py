@@ -1,6 +1,6 @@
 """Provides APIs to optimally cut wood with your chop (miter) saw."""
 
-from sheetgoodcuts import Mixed, QuantityBoard, Board
+from sheetgoodcuts import Mixed, QuantityBoard, Board, BoardResult
 
 
 class ChopSawCuts(object):
@@ -51,6 +51,48 @@ class ChopSawCuts(object):
     def _sort_large_boards_first(board_list):
         return sorted(board_list, key=lambda board: board.length, reverse=True)
 
+    def _needed_length(self, cut):
+        return cut.length + self.saw_blade_width + self.excess_per_cut
+
     def compute(self):
-        pass
+        """ Computes which cuts should go on which boards.
+
+        :return: List of BoardResult objects.
+
+        Sorts the list of desired cuts and available boards by size, descending order.
+        For each cut, places it on the current board if there is enough space.
+        If there is not enough space, try the next board.
+        """
+        # Sort.  Large boards first.
+        cuts = self._sort_large_boards_first(self.desired_cuts)
+        available = self._sort_large_boards_first(self.available_boards)
+
+        # Start at the first board and the first cut.
+        available_index = 0
+        cut_index = 0
+        length_left = available[available_index].length
+        result_boards = []
+        result_cuts = []
+
+        # Loop through each desired cut, placing it on a board.
+        while cut_index < len(cuts):
+            needed_length = self._needed_length(cuts[cut_index])
+            if length_left <= needed_length:
+                # Move to the next available board.
+                result_boards.append(BoardResult(available[available_index], result_cuts))
+                result_cuts = []
+                available_index += 1
+                length_left = available[available_index].length
+                continue
+
+            # Append this cut, reduce the length, and move to the next board.
+            result_cuts.append(cuts[cut_index])
+            length_left -= needed_length
+            cut_index += 1
+
+        # Add the current cuts to the list.
+        result_boards.append(BoardResult(available[available_index], result_cuts))
+
+        return result_boards
+
 

@@ -76,10 +76,12 @@ class QuantityBoard(object):
 
     @property
     def quantity(self):
+        """Quantity of boards."""
         return self._quantity
 
     @property
     def board(self):
+        """Board object."""
         return self._board
 
     def __str__(self):
@@ -110,10 +112,12 @@ class BoardResult(object):
 
     @property
     def board(self):
+        """Board that will be cut up."""
         return self._board
 
     @property
     def cuts(self):
+        """List of cuts as a tuple of Boards."""
         return self._cuts
 
     def __str__(self):
