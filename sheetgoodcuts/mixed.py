@@ -17,6 +17,10 @@ class Mixed(object):
     >>> x
     Mixed("10 1/2")
 
+    Attributes:
+        whole: Whole number, as an int.
+        fraction: Fraction portion, as a Fraction.
+        mixed: Returns the whole + fraction, as a Fraction.
     """
     def __init__(self, number):
         """Creates a new mixed number.

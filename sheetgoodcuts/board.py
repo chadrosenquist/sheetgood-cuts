@@ -7,6 +7,12 @@ class Board(object):
     All measurements must be of type Mixed or a string.
 
     This class is immutable.
+
+    Attributes:
+        name: Name of the board.
+        length: Length of the board, as a Mixed.
+        width: Width of the board, as a Mixed.
+        depth: Depth of the board, as a Mixed.
     """
     def __init__(self, name, depth, width, length):
         """Creates a new Board object.
@@ -65,7 +71,12 @@ class Board(object):
 
 
 class QuantityBoard(object):
-    """This class represents a quantity and a board.  Immutable."""
+    """This class represents a quantity and a board.  Immutable.
+
+    Attributes:
+        quantity: Quantity of boards.
+        board: Board object.
+    """
     def __init__(self, quantity, board):
         """
         :param quantity: Number of boards.
@@ -101,7 +112,12 @@ class QuantityBoard(object):
 
 
 class BoardResult(object):
-    """This class represents a board and the cuts on that board.  Immutable."""
+    """This class represents a board and the cuts on that board.  Immutable.
+
+    Attributes:
+        board: Board that will be cut up.
+        cuts: List of cuts as a tuple of Boards.
+    """
     def __init__(self, board, cuts):
         """
         :param board: The Board that will be cut up.
